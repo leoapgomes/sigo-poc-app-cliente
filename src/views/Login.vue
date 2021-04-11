@@ -35,7 +35,7 @@ export default {
       }
   },
   created() {
-    localStorage.setItem('token_authorization', "");
+    localStorage.setItem('token_authorization', '');
   },
   methods: {
 
@@ -43,7 +43,7 @@ export default {
 
         let formData = new URLSearchParams();
 
-        localStorage.setItem('token_authorization', "");
+        localStorage.setItem('token_authorization', '');
         formData.append('scope', 'web');
         formData.append('grant_type', 'password');
         formData.append('username', this.login);

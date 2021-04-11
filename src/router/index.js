@@ -7,8 +7,8 @@ import Http from "../httpClient";
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Login',
+    component: Login
   },
   {
     path: '/login',
@@ -39,7 +39,13 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
+  if (to.fullPath==="/"){
+    localStorage.setItem('token_authorization', '');
+    next('login');
+  }
+
   if (to.fullPath==="/login"){
+    localStorage.setItem('token_authorization', '');
     next();
     return;
   }
