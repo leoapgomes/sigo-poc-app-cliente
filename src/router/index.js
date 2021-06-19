@@ -39,9 +39,14 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
+//    console.log(to.fullPath);
+//console.log('auth: ' + localStorage.getItem('token_authorization'));
+
+
   if (to.fullPath==="/"){
     localStorage.setItem('token_authorization', '');
     next('login');
+    return;
   }
 
   if (to.fullPath==="/login"){

@@ -63,8 +63,10 @@ export default {
       this.$router.push(caminho);
     },
     logout : function(){
-      if(confirm("Deseja sair do sistema?"))      
-      this.$router.push(`/login`);
+      if(confirm("Deseja sair do sistema?")){
+        localStorage.removeItem('token_authorization');
+        this.$router.push(`/login`);
+      }
     },
     abrirMenu : function(){
       let menu = document.getElementById('menu');
@@ -167,6 +169,8 @@ export default {
     background-image: linear-gradient(#233626,#2f4050);
     text-align: center;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    left: 0px;
+    transition: all 0.5s;
   }
 
 
