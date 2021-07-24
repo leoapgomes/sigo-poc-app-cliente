@@ -24,8 +24,6 @@
       <div class="direita"><i class="fas fa-lg fa-times close-menu" @click="abrirMenu"></i></div>
       <br clear="all"/>
       <hr/>
-      <!--<router-link to="/normas">Gestão de Normas</router-link><br/>
-      <router-link to="/consultorias">Consultorias e Assessorias</router-link>-->
       <span @click="navegar('/normas')">Gestão de Normas</span><br/>     
       <span @click="navegar('/consultorias')">Consultorias e Assessorias</span>
     </div>
@@ -54,6 +52,8 @@ export default {
       return this.$route.fullPath==="/login";
     }
   },
+
+
   methods: {
     navegar: function(caminho){
 
@@ -171,6 +171,7 @@ export default {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     left: 0px;
     transition: all 0.5s;
+    visibility: visible;
   }
 
 

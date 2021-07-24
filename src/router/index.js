@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
 
-import Http from "../httpClient";
+import Login from '../views/Login.vue'
+import httpClient from "../httpClient";
 
 const routes = [
   {
@@ -28,9 +27,15 @@ const routes = [
   {
     path: '/consultorias',
     name: 'Consultorias',
-    component: () => import('../views/About.vue')
+    component: () => import('../views/Consultorias.vue')
+  },{
+    path: '/consultorias-form/:id?',
+    name: 'ConsultoriasForm',
+    component: () => import('../views/ConsultoriasForm.vue'),
+    props: true
   }
 ]
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -39,32 +44,28 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
-//    console.log(to.fullPath);
-//console.log('auth: ' + localStorage.getItem('token_authorization'));
-
-
   if (to.fullPath==="/"){
     localStorage.setItem('token_authorization', '');
     next('login');
-    return;
-  }
-
-  if (to.fullPath==="/login"){
+  } else if (to.fullPath==="/login"){
     localStorage.setItem('token_authorization', '');
     next();
-    return;
+  } else {    
+
+    httpClient.get("/auth/user")
+    .then((response) => response.data)
+    .then((data) => {
+      if(data.authenticated) next(); else next('login');
+
+    })
+    .catch(error => {
+      console.log(error.response.status);
+      next('login');
+    }); 
+
   }
 
-  Http.get("/auth/user")
-      .then((response) => response.data)
-      .then((data) => {
-        if(data.authenticated) next(); else next('login');
-
-      })
-      .catch(error => {
-        console.log(error.response.status);
-        next('login');
-      });  
+ 
 });
 
 export default router

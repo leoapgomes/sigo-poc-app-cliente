@@ -20,7 +20,6 @@
     </div>
 </template>
 
-
 <script>
 
 import Http from "../httpClient";
@@ -35,16 +34,13 @@ export default {
       }
   },
   created() {
-    localStorage.setItem('token_authorization', '');
+    localStorage.removeItem('token_authorization');
   },
   methods: {
 
       doLogin : function() {
 
-        let formData = new URLSearchParams();
-
-        //localStorage.setItem('token_authorization', '');
-	localStorage.removeItem('token_authorization');
+        let formData = new URLSearchParams();    	
 
         formData.append('scope', 'web');
         formData.append('grant_type', 'password');
@@ -63,15 +59,13 @@ export default {
         .then((response) => response.data)
         .then((data) => {
             localStorage.setItem('token_authorization',  data.access_token);
-            this.$router.push('normas');
-            loading(false);
+            window.location = '/normas';
         })
         .catch(error => {
+            alert('Dados inválidos!');
             console.log(error);
             loading(false);
-        });  
-
-        
+        });          
 
       }
   }
